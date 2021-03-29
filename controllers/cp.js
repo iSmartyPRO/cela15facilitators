@@ -63,12 +63,14 @@ module.exports.users = async(req, res) => {
     }
 }
 
+
+
 module.exports.exports = async(req, res) => {
     if(req.session.isAuthenticated === true){
-        exportToExel.export()
+        await exportToExel.export()
         let downloadPath = path.join(__dirname, '..','exports', 'CELA15 Facilitators Application Forms.xlsx')
         console.log(downloadPath)
-        res.download(downloadPath, await function(err){
+        res.download(downloadPath, function(err){
             if(err){
                 if(res.headerSent){
                     console.log('Header is sent')
