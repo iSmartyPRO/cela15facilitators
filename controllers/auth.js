@@ -48,7 +48,8 @@ module.exports.registration = async (req, res) => {
       let context = {
         name: req.body.name,
         email: req.body.nemail,
-        password: randPassword
+        password: randPassword,
+        appUrl: req.headers.host
       }
       mailer.send('ilias@ilianapro.com', 'Created New Account in CELA15 Application Form Web App', 'newAccount', context)
     } catch(e) {
