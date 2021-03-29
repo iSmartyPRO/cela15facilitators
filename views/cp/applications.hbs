@@ -20,30 +20,25 @@
                 <th>Network Name</th>
                 <th>Country of citizenship</th>
                 <th>Current residence</th>
-                <th>Date of Birth</th>
-                <th>Job title</th>
                 <th>Company name</th>
                 <th>Company Industry</th>
-                <th>E-mail</th>
-                <th>Phone Number</th>
-                <th>Bio</th>
-                <th>All sessions are conducted in English, so full fluency in English is critical. If English is not
-                  your native language, how would you describe your ability to communicate in English?</th>
-                <th>Bio</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {{#logData}}
+              {{#applications}}
               <tr>
-                <td>{{ formatDate createdAt}}</td>
-                <td>{{ entryPoint }}</td>
-                <td>{{ ip }}</td>
-                <td>{{ country }}</td>
-                <td>{{ city }}</td>
-                <td>{{ browser }}</td>
-                <td>{{ userAgent }}</td>
+                <th>{{formatDate createdAt}}</th>
+                <th>{{fullName}}</th>
+                <th>{{networkName}}</th>
+                <th>{{countryCitizen}}</th>
+                <th>{{currentResidence}}</th>
+                <th>{{companyName}}</th>
+                <th>{{companyIndustry}}</th>
+                <th><a href="/cp/application/{{_id}}" class="uk-button uk-button-primary">Details</a></th>
               </tr>
-              {{/logData}}
+
+              {{/applications}}
             </tbody>
           </table>
         </div>

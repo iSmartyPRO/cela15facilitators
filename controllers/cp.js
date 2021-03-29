@@ -1,15 +1,32 @@
 const Log = require('../models/log')
+const ApplicationForms = require('../models/applicationForm')
+const User = require('../models/user')
 
-module.exports.dashboard = (req, res) => {
+module.exports.dashboard = async (req, res) => {
     if(req.session.isAuthenticated === true){
-        res.render('cp/dashboard')
+        let data = {}
+        data.frontSiteStats = await Log.find({"entryPoint":"frontSite"}).countDocuments().lean()
+        data.applicationsStats = await ApplicationForms.find().countDocuments().lean()
+        data.userStats = await User.find().countDocuments().lean()
+        res.render('cp/dashboard', {data})
     } else {
         res.redirect('/auth/login')
     }
 }
-module.exports.applications = (req, res) => {
+module.exports.applications = async (req, res) => {
     if(req.session.isAuthenticated === true){
-        res.render('cp/applications')
+        let applications = await ApplicationForms.find().lean()
+        res.render('cp/applications', {applications})
+    } else {
+        res.redirect('/auth/login')
+    }
+}
+module.exports.applicationView = async(req, res) => {
+    if(req.session.isAuthenticated === true){
+        console.log(req.params)
+        let application = await ApplicationForms.findById(req.params.id).lean()
+        console.log(application)
+        res.render('cp/applicationView', {application})
     } else {
         res.redirect('/auth/login')
     }
@@ -18,7 +35,7 @@ module.exports.applications = (req, res) => {
 module.exports.logs = async (req, res) => {
     if(req.session.isAuthenticated === true){
         try {
-            const logData = await Log.find().lean()
+            const logData = await Log.find().sort({"createdAt":-1}).lean()
             console.log('typeof ',typeof logData)
             res.render('cp/logs',{logData:logData})
         } catch(e) {

@@ -23,6 +23,7 @@ module.exports.authenticate = async (req, res) => {
     if(password === candidate.password){
       console.log('Password not same')
       req.session.isAuthenticated = true
+      req.session.userName = candidate.name.split(' ')[0]
       res.redirect('/cp/')
     } else {
       req.flash('loginError', 'Incorrect password')
