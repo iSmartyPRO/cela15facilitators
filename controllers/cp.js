@@ -1,6 +1,9 @@
 const Log = require('../models/log')
 const ApplicationForms = require('../models/applicationForm')
 const User = require('../models/user')
+const exportToExel = require('../utils/exportToExel')
+const fs = require('fs')
+const path = require('path')
 
 module.exports.dashboard = async (req, res) => {
     if(req.session.isAuthenticated === true){
@@ -55,6 +58,26 @@ module.exports.users = async(req, res) => {
             console.log(e)
         }
 
+    } else {
+        res.redirect('/auth/login')
+    }
+}
+
+module.exports.exports = async(req, res) => {
+    if(req.session.isAuthenticated === true){
+        exportToExel.export()
+        let downloadPath = path.join(__dirname, '..','exports', 'CELA15 Facilitators Application Forms.xlsx')
+        console.log(downloadPath)
+        res.download(downloadPath, await function(err){
+            if(err){
+                if(res.headerSent){
+                    console.log('Header is sent')
+                } else {
+                    return res.sendStatus(404)
+                }
+            }
+            res.end()
+        })
     } else {
         res.redirect('/auth/login')
     }
