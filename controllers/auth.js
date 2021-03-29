@@ -42,7 +42,8 @@ module.exports.registration = async (req, res) => {
     let newUser = new User({
       'name': req.body.name,
       'email': req.body.nemail.toLowerCase(),
-      'password': randPassword
+      'password': randPassword,
+      'notification': true
     })
     try {
       await newUser.save()
@@ -52,7 +53,7 @@ module.exports.registration = async (req, res) => {
         password: randPassword,
         appUrl: req.headers.host
       }
-      mailer.send('ilias@ilianapro.com', 'Created New Account in CELA15 Application Form Web App', 'newAccount', context)
+      mailer.send(req.body.nemail, 'Created New Account in CELA15 Application Form Web App', 'newAccount', context)
     } catch(e) {
       console.log(e)
     }

@@ -1,6 +1,8 @@
 const AppForm = require('../models/applicationForm')
 const Error = require('../models/error')
 const logger = require('../utils/logger')
+const mailer = require('../utils/mailer')
+const User = require('../models/user')
 
 function isValidDate(dateString) {
     if(!/^\d{1,2}[.]\d{1,2}[.]\d{4}$/.test(dateString)) return false;
@@ -58,7 +60,7 @@ module.exports.store = async (req, res) => {
     //console.log(req.headers)
     validationResult = validate(d)
     if(validationResult.status === "OK"){
-       const appData = new AppForm({
+        let context = {
             fullName: d.fullName,
             networkName: d.networkName,
             networkClassYear: d.networkClassYear,
@@ -77,11 +79,21 @@ module.exports.store = async (req, res) => {
             whoFacilitator: d.whoFacilitator,
             references: d.references,
             authPhotos: d.authPhotos === 'yes' ? true : false
-        })
+        }
+       const appData = new AppForm(context)
         try{
-            await appData.save()
+            let notificationUsers = await User.find({"notification":true}).lean()
+            await appData.save(function(err, application){
+                context.id = application.id
+                context.appUrl = req.headers.host
+                for(i = 0; i < notificationUsers.length; i++){
+                    context.username = notificationUsers[i].name
+                    mailer.send(notificationUsers[i].email, 'New Application Form from ' + d.fullName, 'newAppForm', context)
+                }
+                mailer.send(context.email, 'CELA15 Facilitators Registration', 'notificationToParticipant', context)
+            })
             logger.add(req, 'apiSaved')
-            validationResult.createdAt = new Date()
+
         } catch(e){
             console.log(e)
         }

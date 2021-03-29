@@ -46,3 +46,16 @@ module.exports.logs = async (req, res) => {
         res.redirect('/auth/login')
     }
 }
+module.exports.users = async(req, res) => {
+    if(req.session.isAuthenticated === true){
+        try {
+            const users = await User.find().lean()
+            res.render('cp/users',{users})
+        } catch(e) {
+            console.log(e)
+        }
+
+    } else {
+        res.redirect('/auth/login')
+    }
+}

@@ -16,10 +16,12 @@ module.exports.send = (mailTo, mailSubject, mailTemplate, context) => {
     viewEngine: {
       partialsDir: __dirname + '/mailer/partials',
       layoutsDir: __dirname + '/mailer/layouts',
-      extname: '.hbs'
+      extname: '.hbs',
+      helpers: require('./hbs-helpers')
+
     },
     viewPath: __dirname + '/mailer/views',
-    extName: '.hbs'
+    extName: '.hbs',
   }))
   let message = {
     from: config.mailFrom,

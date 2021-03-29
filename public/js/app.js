@@ -74,20 +74,20 @@ UIkit.util.on('#sendBtn', 'click', function (e) {
         UIkit.util.removeClass(congratsWindow, 'uk-hidden')
       } else {
         console.log('errors here')
-        let applicationErrorBox = UIkit.util.$('#applicationErrorBox')
-        UIkit.util.removeClass(applicationErrorBox, 'uk-hidden')
       }
     })
   } else {
     console.log('You have errors in your form')
-    let formData = document.getElementById("applicationFormData").elements;
-    console.log('authPhotos:',formData["authPhotos"].value)
+    let errorBox = UIkit.util.$('#applicationErrorBox')
+    UIkit.util.removeClass(errorBox, 'uk-hidden')
+
   }
   haveErrors = false
 })
 
 function isBad(element, reason) {
   haveErrors = true
+  UIkit.util.removeClass(applicationErrorBox, 'uk-invisible')
   let badId = UIkit.util.$('#' + element.id + '_alert')
   if (badId === undefined) {
     UIkit.util.addClass(element, 'uk-form-danger')
@@ -95,13 +95,10 @@ function isBad(element, reason) {
       UIkit.util.after(element, `<span class="uk-text-small uk-text-danger" id="${element.id}_alert">${reason}</span>`)
     }
   }
-  let applicationErrorBox = UIkit.util.$('#applicationErrorBox')
-  UIkit.util.removeClass(applicationErrorBox, 'uk-hidden')
 }
+console.log(haveErrors)
 function isOk(element) {
   UIkit.util.removeClass(element, 'uk-form-danger')
-  let applicationErrorBox = UIkit.util.$('#applicationErrorBox')
-  UIkit.util.addClass(applicationErrorBox, 'uk-hidden')
   clearBad(element)
 }
 function clearBad(element) {

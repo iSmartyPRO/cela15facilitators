@@ -65,3 +65,8 @@
 .cela-background-danger {
   background-color: #e4aaaa;
 }
+
+.cela-error {
+  background: #f00;
+  color: #fff;
+}

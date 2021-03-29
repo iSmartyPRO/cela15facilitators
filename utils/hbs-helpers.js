@@ -5,3 +5,7 @@ module.exports.formatDate = function (date, format) {
 module.exports.ternary = function(data, ifYes, ifNo){
   return data ? ifYes : ifNo
 }
+
+function ternary(data, ifYes, ifNo){
+  return data ? ifYes : ifNo
+}
