@@ -24,6 +24,7 @@ function validate(data) {
     const emailRe = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     if((typeof data.fullName === 'undefined') || (data.fullName.length < 4)) { errors.push('Full Name is not valid')}
     if((typeof data.networkName === 'undefined') || (data.networkName === "null")) { errors.push('Network name is not valid')}
+    if((typeof data.networkName === 'undefined') || (data.networkName === "null")) { errors.push('Network class year is not valid')}
     if((typeof data.countryCitizen === 'undefined') || (data.countryCitizen === "null")) { errors.push('Country is not valid')}
     if((typeof data.DoB === 'undefined') || (isValidDate(data.DoB) != true )) { errors.push('Date of Birth is not valid')}
     if((typeof data.currentResidence === 'undefined') || (data.currentResidence.length < 4)) { errors.push('Current residence is not valid')}
@@ -56,11 +57,11 @@ module.exports.store = async (req, res) => {
     const d = req.body
     //console.log(req.headers)
     validationResult = validate(d)
-    console.log(validationResult)
     if(validationResult.status === "OK"){
        const appData = new AppForm({
             fullName: d.fullName,
             networkName: d.networkName,
+            networkClassYear: d.networkClassYear,
             countryCitizen: d.countryCitizen,
             DoB: d.DoB,
             currentResidence: d.currentResidence,

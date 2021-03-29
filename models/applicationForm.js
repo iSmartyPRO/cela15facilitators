@@ -3,6 +3,7 @@ const {Schema, model} = require('mongoose')
 const appForm = new Schema({
   fullName: {type: String,required: true},
   networkName: {type: String,required: true},
+  networkClassYear: {type: String,required: true},
   countryCitizen: {type: String,required: true},
   DoB: {type: String,required: true},
   currentResidence: {type: String,required: true},

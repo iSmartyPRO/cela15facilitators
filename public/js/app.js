@@ -38,7 +38,6 @@ UIkit.util.on('#sendBtn', 'click', function (e) {
   e.preventDefault()
   if(validate() === false){
     let formData = document.getElementById("applicationFormData").elements;
-    //console.log(formData["fullName"].value)
     UIkit.util.ajax('/api/appForm',{
       method: 'POST',
       responseType: 'json',
@@ -49,6 +48,7 @@ UIkit.util.on('#sendBtn', 'click', function (e) {
       data: JSON.stringify({
         "fullName": formData["fullName"].value,
         "networkName": formData["networkName"].value,
+        "networkClassYear": formData["networkClassYear"].value,
         "countryCitizen": formData["countryCitizen"].value,
         "DoB": formData["DoB"].value,
         "currentResidence": formData["currentResidence"].value,
@@ -63,7 +63,8 @@ UIkit.util.on('#sendBtn', 'click', function (e) {
         "experienceInfo": formData["experienceInfo"].value,
         "whoFacilitator": formData["whoFacilitator"].value,
         "references": formData["references"].value,
-        "authPhotos": formData["authPhotos"].value
+        "authPhotos": formData["authPhotos"].value,
+        "_csrf": formData["_csrf"].value
       })
     }).then(function(xhr){
       sendBtn.disabled = true;
@@ -125,6 +126,7 @@ function validate() {
   const emailRe = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   let fullName = UIkit.util.$('#fullName')
   let networkName = UIkit.util.$('#networkName')
+  let networkClassYear = UIkit.util.$('#networkClassYear')
   let countryCitizen = UIkit.util.$('#countryCitizen')
   let DoBCheck = UIkit.util.$('#DoB')
   let currentResidence = UIkit.util.$('#currentResidence')
@@ -143,6 +145,7 @@ function validate() {
   fullName.value.length < 4 ? isBad(fullName, 'This field is less than 4 character. Please enter your Full name') : isOk(fullName)
   networkName.value == 'null' ? isBad(networkName, 'Please select network from list') : isOk(networkName)
   countryCitizen.value == 'null' ? isBad(countryCitizen, 'Please select country from list') : isOk(countryCitizen)
+  networkClassYear.value == 'null' ? isBad(networkClassYear, 'Please select network class year') : isOk(networkClassYear)
   isValidDate(DoBCheck.value) != true ? isBad(DoBCheck, 'Enter valid Date of Birth. Format: dd.mm.yyyy') : isOk(DoBCheck)
   currentResidence.value.length < 4 ? isBad(currentResidence, 'This field is less than 4 character. Please enter your residence information') : isOk(currentResidence)
   title.value.length < 2 ? isBad(title, 'This field is less than 2 character. Please enter your title.') : isOk(title)
@@ -175,4 +178,5 @@ UIkit.util.on('#experienceInfo', 'keypress', function () {isOk(this)})
 UIkit.util.on('#whoFacilitator', 'keypress', function () {isOk(this)})
 UIkit.util.on('#references', 'keypress', function () {isOk(this)})
 UIkit.util.on('#networkName', 'click', function () {isOk(this)})
+UIkit.util.on('#networkClassYear', 'click', function () {isOk(this)})
 UIkit.util.on('#countryCitizen', 'click', function () {isOk(this)})

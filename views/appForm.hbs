@@ -146,6 +146,16 @@
                     </select>
                 </div>
                 <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-select">Network class year <span
+                            class="uk-text-danger">*</span></label>
+                    <select class="uk-select" name="networkClassYear" id="networkClassYear">
+                        <option value="null">Select your network year</option>
+                        {{#classYears}}
+                        <option value="{{this}}">{{this}}</option>
+                        {{/classYears}}
+                    </select>
+                </div>
+                <div class="uk-margin">
                     <label class="uk-form-label" for="form-stacked-select">Country of citizenship <span
                             class="uk-text-danger">*</span></label>
                     <select class="uk-select" name="countryCitizen" id="countryCitizen">
@@ -215,8 +225,9 @@
                 </div>
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-stacked-select">Please describe your previous
-                        facilitating/teaching experiences: (paid/non-paid). If any, please let us know when, with whom
-                        and the nature of your role. <span class="uk-text-danger">*</span></label>
+                        facilitating/teaching/moderating/training experiences: (paid/non-paid). If any, please let us
+                        know when, with whom and the nature of your role. * <span
+                            class="uk-text-danger">*</span></label>
                     <textarea class="uk-textarea" rows="5" placeholder="Your answer" name="experienceInfo"
                         id="experienceInfo"></textarea>
                 </div>
@@ -279,6 +290,7 @@
                     <p>Application Form can't be sent, because some errors is occurs, please check the form and fix it.
                     </p>
                 </div>
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
                 <input type="submit" href="#" class="uk-button uk-button-large uk-width-1-1 uk-button-primary"
                     id="sendBtn" value="Submit Application" disabled></input>
 

@@ -9,5 +9,11 @@ module.exports.home = (req, res) => {
     let todayDate = new Date()
     let todayDateFormat = moment(todayDate).format('DD.MM.yyyy')
     logger.add(req, 'frontSite')
-    res.render('appForm', { layout: 'frontSite', countries, networks, todayDateFormat })
+    let classYears = []
+    let startClassYear = 1991
+    let endClassYear = 2020
+    for(let i = startClassYear; i <= endClassYear; i++){
+        classYears.push(i)
+    }
+    res.render('appForm', { layout: 'frontSite', countries, networks, todayDateFormat, classYears, csrfToken: req.csrfToken() })
 }
