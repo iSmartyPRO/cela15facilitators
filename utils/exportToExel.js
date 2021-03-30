@@ -82,6 +82,6 @@ module.exports.export = async function() {
     })
   })
 
-  workbook.xlsx.writeFile('./exports/CELA15 Facilitators Application Forms.xlsx')
+  await workbook.xlsx.writeFile('./exports/CELA15 Facilitators Application Forms.xlsx')
 
 }
