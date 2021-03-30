@@ -63,8 +63,33 @@ module.exports.registration = async (req, res) => {
   }
 }
 
+// Logout from Control Panel
 module.exports.logout = async (req, res) => {
     req.session.destroy(() => {
       res.redirect('/auth/login')
     })
+}
+
+// Reset Password
+module.exports.reset = async(req, res) => {
+  let email = req.body.remail
+  let candidate = await User.findOne({'email':email})
+  if(candidate) {
+    candidateId = candidate.id
+    let randPassword = randomstring = Math.random().toString(36).slice(-10); // random password 10 chars
+    await User.findByIdAndUpdate({"_id": candidateId}, {'password':randPassword}, function(err, result){
+      if(err) console.log(err)
+      let context = {}
+      context.appUrl = req.headers.host
+      context.name = candidate.name
+      context.email = candidate.email
+      context.password = randPassword
+      mailer.send(candidate.email, 'New password for account in CELA15 Application Form Web App', 'resetAccount', context)
+      req.flash('loginError', `Password is updated, check your e-mail: ${candidate.email}`)
+      res.redirect('/auth/login')
+    })
+  } else {
+    req.flash('loginError', 'User not found')
+    res.redirect('/auth/login')
+  }
 }

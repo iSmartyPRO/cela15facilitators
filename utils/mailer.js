@@ -35,7 +35,8 @@ module.exports.send = (mailTo, mailSubject, mailTemplate, context) => {
     if(err){
       console.log(err)
     } else {
-      console.log(info)
+      console.log('E-mail is send to:', mailTo)
+      //console.log(info)
     }
   })
 }
