@@ -18,7 +18,7 @@
               <tr>
                 <th>Date</th>
                 <th>Full Name</th>
-                <th>Network Name</th>
+                <th>Network Name (year)</th>
                 <th>Country of citizenship</th>
                 <th>Current residence</th>
                 <th>Company name</th>
@@ -31,7 +31,7 @@
               <tr>
                 <th>{{formatDate createdAt}}</th>
                 <th>{{fullName}}</th>
-                <th>{{networkName}}</th>
+                <th>{{networkName}} {{ternary networkClassYear networkClassYear ''}}</th>
                 <th>{{countryCitizen}}</th>
                 <th>{{currentResidence}}</th>
                 <th>{{companyName}}</th>
