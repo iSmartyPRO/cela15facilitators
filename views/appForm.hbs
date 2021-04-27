@@ -7,6 +7,7 @@
             <h1 class="uk-margin-remove-top"><strong>FACILITATORS FOR CELA 15
                     ACADEMY</strong></h1>
             <p class="subtitle-text uk-visible@s">30 JULY 2021 (ARRIVAL) – 12 AUGUST 2021 (DEPARTURE)</p>
+            {{#if showAppForm}}
             {{!-- Countdown date --}}
             <div class="uk-grid-small uk-child-width-auto uk-padding-top" uk-grid
                 uk-countdown="date: 2021-04-23T23:59:59+00:00">
@@ -30,6 +31,7 @@
                     <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Seconds</div>
                 </div>
             </div>
+            {{/if}}
         </div>
     </div>
     <!-- /TOP CONTAINER -->
@@ -120,8 +122,8 @@
         </div>
     </div>
 </div>
+{{#if showAppForm }}
 <hr class="uk-divider-icon">
-
 <div class="uk-section" id="applicationForm">
     <div class="uk-container">
         <h2 class="uk-text-center" style="color: #043191"><strong>APPLICATION FORM FOR <br>CELA 15 FACILITATOR’S
@@ -304,6 +306,7 @@
 
 
 </div>
+{{/if}}
 </div>
 
 <div class="uk-section uk-hidden" id="congratsWindow">

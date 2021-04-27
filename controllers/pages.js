@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const moment = require('moment')
 const logger = require('../utils/logger')
+const config = require('../config')
 
 module.exports.home = (req, res) => {
     let countries = JSON.parse(fs.readFileSync('./data/countries.json', 'utf8'))
@@ -12,8 +13,9 @@ module.exports.home = (req, res) => {
     let classYears = []
     let startClassYear = 1991
     let endClassYear = 2020
-    for(let i = startClassYear; i <= endClassYear; i++){
+    for (let i = startClassYear; i <= endClassYear; i++) {
         classYears.push(i)
     }
-    res.render('appForm', { layout: 'frontSite', countries, networks, todayDateFormat, classYears, csrfToken: req.csrfToken() })
+    let showAppForm = config.showAppForm
+    res.render('appForm', { layout: 'frontSite', showAppForm, countries, networks, todayDateFormat, classYears, csrfToken: req.csrfToken() })
 }
